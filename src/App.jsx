@@ -1,7 +1,7 @@
-import Navbar from "./components/Navbar";
-import AppRouter from "./router/AppRouter";
+import Loading from "./components/Loading";
+// import AppRouter from "./router/AppRouter";
 
 const App = () => {
-  return <AppRouter />;
+  return <Loading />;
 };
 export default App;
