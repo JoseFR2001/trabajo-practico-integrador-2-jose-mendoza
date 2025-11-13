@@ -1,7 +1,6 @@
-import Loading from "./components/Loading";
-// import AppRouter from "./router/AppRouter";
+import AppRouter from "./router/AppRouter";
 
 const App = () => {
-  return <Loading />;
+  return <AppRouter />;
 };
 export default App;

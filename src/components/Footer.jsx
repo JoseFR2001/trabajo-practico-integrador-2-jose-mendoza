@@ -1,8 +1,10 @@
 const Footer = () => {
+  const year = new Date().getFullYear();
   return (
     <footer>
-      <h1>Esto es un Footer</h1>
+      <small>&copy; {year} José Mendoza. Todos los derechos reservados.</small>
     </footer>
   );
 };
+
 export default Footer;
