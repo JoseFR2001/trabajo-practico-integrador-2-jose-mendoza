@@ -99,6 +99,8 @@ const Tasks = () => {
       return;
     }
     try {
+      console.log("Datos a enviar:", form);
+      console.log("Tipo de is_completed:", typeof form.is_completed);
       const res = await fetch(`http://localhost:3000/api/tasks/${idToEdit}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -145,107 +147,133 @@ const Tasks = () => {
   };
 
   return (
-    <main>
-      <div>
-        <section>
-          <h2>{idToEdit ? "Editar" : "Crear"} Tarea</h2>
+    <main className="container mt-5">
+      <div className="row">
+        <div className="col-md-4 mb-4">
+          <div className="card">
+            <div className="card-body">
+              <h4 className="card-title">
+                {idToEdit ? "Editar" : "Crear"} Tarea
+              </h4>
 
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="title">Título</label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                value={form.title}
-                onChange={handleChange}
-              />
-            </div>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="title" className="form-label">
+                    Título
+                  </label>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    className="form-control"
+                    value={form.title}
+                    onChange={handleChange}
+                  />
+                </div>
 
-            <div>
-              <label htmlFor="description">Descripción</label>
-              <textarea
-                id="description"
-                name="description"
-                value={form.description}
-                onChange={handleChange}
-                rows="3"
-              ></textarea>
-            </div>
+                <div className="mb-3">
+                  <label htmlFor="description" className="form-label">
+                    Descripción
+                  </label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    className="form-control"
+                    value={form.description}
+                    onChange={handleChange}
+                    rows="3"
+                  ></textarea>
+                </div>
 
-            <div>
-              <input
-                type="checkbox"
-                id="is_completed"
-                name="is_completed"
-                checked={form.is_completed}
-                onChange={handleChange}
-              />
-              <label htmlFor="is_completed">Marcar como completada</label>
-            </div>
+                <div className="form-check mb-3">
+                  <input
+                    type="checkbox"
+                    id="is_completed"
+                    name="is_completed"
+                    className="form-check-input"
+                    checked={form.is_completed}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="is_completed" className="form-check-label">
+                    Marcar como completada
+                  </label>
+                </div>
 
-            <button type="submit">
-              {idToEdit ? "Actualizar Tarea" : "Guardar Tarea"}
-            </button>
+                <button type="submit" className="btn btn-primary w-100 mb-2">
+                  {idToEdit ? "Actualizar Tarea" : "Guardar Tarea"}
+                </button>
 
-            {idToEdit && (
-              <button type="button" onClick={handleCancelEdit}>
-                Cancelar Edición
-              </button>
-            )}
-          </form>
-        </section>
-
-        <section>
-          <h2>Mis Tareas</h2>
-
-          <div>
-            {loading && <Loading />}
-
-            {!loading && (
-              <>
-                {tasks.length === 0 ? (
-                  <p>Aún no tienes tareas. ¡Añade una!</p>
-                ) : (
-                  <div>
-                    {tasks.map((task) => (
-                      <div key={task.id}>
-                        <div>
-                          <h3
-                            style={{
-                              textDecoration: task.is_completed
-                                ? "line-through"
-                                : "none",
-                            }}
-                          >
-                            {task.title}
-                          </h3>
-                          <p
-                            style={{
-                              textDecoration: task.is_completed
-                                ? "line-through"
-                                : "none",
-                            }}
-                          >
-                            {task.description}
-                          </p>
-                        </div>
-                        <div>
-                          <button onClick={() => handleSelectEdit(task)}>
-                            Editar
-                          </button>
-                          <button onClick={() => handleDelete(task.id)}>
-                            Borrar
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                {idToEdit && (
+                  <button
+                    type="button"
+                    className="btn btn-secondary w-100"
+                    onClick={handleCancelEdit}
+                  >
+                    Cancelar Edición
+                  </button>
                 )}
-              </>
-            )}
+              </form>
+            </div>
           </div>
-        </section>
+        </div>
+
+        <div className="col-md-8">
+          <h4>Mis Tareas</h4>
+
+          {loading && <Loading />}
+
+          {!loading && (
+            <>
+              {tasks.length === 0 ? (
+                <p className="text-muted">Aún no tienes tareas. ¡Añade una!</p>
+              ) : (
+                <div className="list-group">
+                  {tasks.map((task) => (
+                    <div
+                      key={task.id}
+                      className="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <div>
+                        <h5
+                          className={
+                            task.is_completed
+                              ? "text-muted text-decoration-line-through mb-1"
+                              : "mb-1"
+                          }
+                        >
+                          {task.title}
+                        </h5>
+                        <p
+                          className={
+                            task.is_completed
+                              ? "text-muted text-decoration-line-through mb-0 small"
+                              : "mb-0 small"
+                          }
+                        >
+                          {task.description}
+                        </p>
+                      </div>
+                      <div>
+                        <button
+                          className="btn btn-sm btn-warning me-1"
+                          onClick={() => handleSelectEdit(task)}
+                        >
+                          Editar
+                        </button>
+                        <button
+                          className="btn btn-sm btn-danger"
+                          onClick={() => handleDelete(task.id)}
+                        >
+                          Borrar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </main>
   );

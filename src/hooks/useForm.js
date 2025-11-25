@@ -4,10 +4,10 @@ const useForm = (initialValues) => {
   const [form, setForm] = useState(initialValues);
 
   const handleChange = ({ target }) => {
-    const { name, value } = target;
+    const { name, value, type, checked } = target;
     setForm({
       ...form,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 

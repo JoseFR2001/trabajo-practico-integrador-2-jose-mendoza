@@ -46,42 +46,54 @@ const Profile = ({ onLogout }) => {
   };
 
   return (
-    <main>
-      <section>
-        {loading && <Loading />}
+    <main className="container mt-5">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-body">
+              {loading && <Loading />}
 
-        <div>
-          <div>{userData?.name}</div>
-          <h1>
-            {userData?.name
-              ? `${userData.name} ${userData.lastname}`
-              : "Mi Perfil"}
-          </h1>
-          <p>Información personal</p>
-        </div>
+              <div className="text-center mb-3">
+                <div
+                  className="bg-primary text-white rounded-circle d-inline-flex justify-content-center align-items-center"
+                  style={{ width: "60px", height: "60px", fontSize: "24px" }}
+                >
+                  {userData?.name ? userData.name.charAt(0).toUpperCase() : "U"}
+                </div>
+                <h4 className="mt-2">
+                  {userData?.name
+                    ? `${userData.name} ${userData.lastname}`
+                    : "Mi Perfil"}
+                </h4>
+                <p className="text-muted">Información personal</p>
+              </div>
 
-        <hr />
+              <hr />
 
-        {!loading && userData && (
-          <div>
-            <div>
-              <span>ID de Usuario</span>
-              <p>{userData.id}</p>
+              {!loading && userData && (
+                <div>
+                  <div className="mb-2">
+                    <strong>ID de Usuario:</strong> {userData.id}
+                  </div>
+                  <div className="mb-2">
+                    <strong>Nombre:</strong> {userData.name}
+                  </div>
+                  <div className="mb-3">
+                    <strong>Apellido:</strong> {userData.lastname}
+                  </div>
+
+                  <button
+                    className="btn btn-danger w-100"
+                    onClick={handleLogoutClick}
+                  >
+                    Cerrar Sesión
+                  </button>
+                </div>
+              )}
             </div>
-            <div>
-              <span>Nombre</span>
-              <p>{userData.name}</p>
-            </div>
-            <div>
-              <span>Apellido</span>
-              <p>{userData.lastname}</p>
-            </div>
-
-            {/* Botón Logout */}
-            <button onClick={handleLogoutClick}>Cerrar Sesión</button>
           </div>
-        )}
-      </section>
+        </div>
+      </div>
     </main>
   );
 };

@@ -41,17 +41,19 @@ const App = () => {
   }
 
   return (
-    <>
+    <div className="d-flex flex-column min-vh-100">
       <Navbar authStatus={authStatus} onLogout={handleLogout} />
 
-      <AppRouter
-        authStatus={authStatus}
-        onLogin={handleLogin}
-        onLogout={handleLogout}
-      />
+      <div className="flex-grow-1">
+        <AppRouter
+          authStatus={authStatus}
+          onLogin={handleLogin}
+          onLogout={handleLogout}
+        />
+      </div>
 
       <Footer />
-    </>
+    </div>
   );
 };
 

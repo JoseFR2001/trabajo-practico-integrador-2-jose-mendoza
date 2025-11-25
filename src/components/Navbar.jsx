@@ -15,24 +15,38 @@ const Navbar = ({ authStatus, onLogout }) => {
   };
 
   return (
-    <nav>
-      <div>
-        {/* Logo */}
-        <h1>José Tareas</h1>
-
-        {/* Links */}
-        <div>
+    <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <div className="container">
+        <Link className="navbar-brand" to="/home">
+          José Tareas
+        </Link>
+        <div className="navbar-nav ms-auto">
           {authStatus === "authenticated" ? (
             <>
-              <Link to="/home">Inicio</Link>
-              <Link to="/tasks">Tareas</Link>
-              <Link to="/profile">Perfil</Link>
-              <button onClick={handleLogoutClick}>Cerrar sesión</button>
+              <Link className="nav-link" to="/home">
+                Inicio
+              </Link>
+              <Link className="nav-link" to="/tasks">
+                Tareas
+              </Link>
+              <Link className="nav-link" to="/profile">
+                Perfil
+              </Link>
+              <button
+                className="btn btn-outline-light btn-sm ms-2"
+                onClick={handleLogoutClick}
+              >
+                Cerrar sesión
+              </button>
             </>
           ) : (
             <>
-              <Link to="/login">Iniciar sesión</Link>
-              <Link to="/register">Registrarse</Link>
+              <Link className="nav-link" to="/login">
+                Iniciar sesión
+              </Link>
+              <Link className="nav-link" to="/register">
+                Registrarse
+              </Link>
             </>
           )}
         </div>

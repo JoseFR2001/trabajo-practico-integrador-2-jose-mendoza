@@ -48,39 +48,52 @@ const Home = () => {
 
   if (loading) {
     return (
-      <main>
+      <main className="container mt-5">
         <Loading />
       </main>
     );
   }
 
   return (
-    <main>
-      <div>
-        <h1>
-          Bienvenido, <span>{userData?.name || "Usuario"}</span>
-        </h1>
+    <main className="container mt-5">
+      <h1 className="mb-4">
+        Bienvenido,{" "}
+        <span className="text-primary">{userData?.name || "Usuario"}</span>
+      </h1>
 
-        <div>
-          <div>
-            <h3>{totalTasks}</h3>
-            <p>Total de Tareas</p>
-          </div>
-
-          <div>
-            <h3>{completedTasks}</h3>
-            <p>Completadas</p>
-          </div>
-
-          <div>
-            <h3>{pendingTasks}</h3>
-            <p>Pendientes</p>
+      <div className="row mb-4">
+        <div className="col-md-4">
+          <div className="card text-center">
+            <div className="card-body">
+              <h3 className="card-title">{totalTasks}</h3>
+              <p className="card-text">Total de Tareas</p>
+            </div>
           </div>
         </div>
 
-        <div>
-          <Link to="/tasks">Ir a mis Tareas</Link>
+        <div className="col-md-4">
+          <div className="card text-center">
+            <div className="card-body">
+              <h3 className="card-title text-success">{completedTasks}</h3>
+              <p className="card-text">Completadas</p>
+            </div>
+          </div>
         </div>
+
+        <div className="col-md-4">
+          <div className="card text-center">
+            <div className="card-body">
+              <h3 className="card-title text-warning">{pendingTasks}</h3>
+              <p className="card-text">Pendientes</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="text-center">
+        <Link to="/tasks" className="btn btn-primary">
+          Ir a mis Tareas
+        </Link>
       </div>
     </main>
   );

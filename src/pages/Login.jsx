@@ -39,48 +39,58 @@ const Login = ({ onLoginSuccess }) => {
   };
 
   return (
-    <main>
-      {/* Loading */}
+    <main className="container mt-5">
       {loading && <Loading />}
 
-      <div>
-        {/* Encabezado */}
-        <h2>Bienvenido</h2>
-        <p>Inicia sesión para continuar</p>
+      <div className="row justify-content-center">
+        <div className="col-md-6 col-lg-4">
+          <div className="card">
+            <div className="card-body">
+              <h2 className="card-title text-center">Bienvenido</h2>
+              <p className="text-center text-muted">Inicia sesión</p>
 
-        {/* Formulario */}
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Usuario</label>
-            <input
-              id="username"
-              type="text"
-              name="username"
-              value={form.username}
-              onChange={handleChange}
-              required
-            />
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="username" className="form-label">
+                    Usuario
+                  </label>
+                  <input
+                    id="username"
+                    type="text"
+                    name="username"
+                    className="form-control"
+                    value={form.username}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">
+                    Contraseña
+                  </label>
+                  <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    className="form-control"
+                    value={form.password}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <button type="submit" className="btn btn-primary w-100">
+                  Ingresar
+                </button>
+              </form>
+
+              <p className="text-center mt-3">
+                ¿No tienes cuenta? <Link to="/register">Registrate</Link>
+              </p>
+            </div>
           </div>
-
-          <div>
-            <label htmlFor="password">Contraseña</label>
-            <input
-              id="password"
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button type="submit">Ingresar</button>
-        </form>
-
-        {/* Registro */}
-        <p>
-          ¿No tienes cuenta? <Link to="/register">Registrate</Link>
-        </p>
+        </div>
       </div>
     </main>
   );

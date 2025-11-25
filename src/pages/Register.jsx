@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useForm from "../hooks/useForm";
 import Loading from "../components/Loading";
 
-const Register = ({ onLoginSuccess }) => {
+const Register = () => {
   const { form, handleChange } = useForm({
     username: "",
     email: "",
@@ -14,6 +14,8 @@ const Register = ({ onLoginSuccess }) => {
   });
 
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ const Register = ({ onLoginSuccess }) => {
       const data = await res.json();
 
       if (res.ok) {
-        onLoginSuccess();
+        navigate("/login");
       } else {
         alert(data.message || "Error en el registro");
       }
@@ -52,99 +54,124 @@ const Register = ({ onLoginSuccess }) => {
   };
 
   return (
-    <main>
+    <main className="container mt-5">
       {loading && <Loading />}
-      <div>
-        <h2>Crear cuenta</h2>
 
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="username">Usuario</label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              value={form.username}
-              onChange={handleChange}
-              disabled={loading}
-              required
-            />
-          </div>
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="card">
+            <div className="card-body">
+              <h2 className="card-title text-center">Crear cuenta</h2>
 
-          <div>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={handleChange}
-              disabled={loading}
-              required
-            />
-          </div>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                  <label htmlFor="username" className="form-label">
+                    Usuario
+                  </label>
+                  <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    className="form-control"
+                    value={form.username}
+                    onChange={handleChange}
+                    disabled={loading}
+                    required
+                  />
+                </div>
 
-          <div>
-            <label htmlFor="password">Contraseña</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={handleChange}
-              disabled={loading}
-              required
-            />
-          </div>
+                <div className="mb-3">
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    className="form-control"
+                    value={form.email}
+                    onChange={handleChange}
+                    disabled={loading}
+                    required
+                  />
+                </div>
 
-          <div>
-            <div>
-              <label htmlFor="firstname">Nombre</label>
-              <input
-                id="firstname"
-                name="firstname"
-                type="text"
-                value={form.firstname}
-                onChange={handleChange}
-                disabled={loading}
-                required
-              />
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">
+                    Contraseña
+                  </label>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    className="form-control"
+                    value={form.password}
+                    onChange={handleChange}
+                    disabled={loading}
+                    required
+                  />
+                </div>
+
+                <div className="row mb-3">
+                  <div className="col">
+                    <label htmlFor="firstname" className="form-label">
+                      Nombre
+                    </label>
+                    <input
+                      id="firstname"
+                      name="firstname"
+                      type="text"
+                      className="form-control"
+                      value={form.firstname}
+                      onChange={handleChange}
+                      disabled={loading}
+                      required
+                    />
+                  </div>
+                  <div className="col">
+                    <label htmlFor="lastname" className="form-label">
+                      Apellido
+                    </label>
+                    <input
+                      id="lastname"
+                      name="lastname"
+                      type="text"
+                      className="form-control"
+                      value={form.lastname}
+                      onChange={handleChange}
+                      disabled={loading}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="dni" className="form-label">
+                    DNI
+                  </label>
+                  <input
+                    id="dni"
+                    name="dni"
+                    type="text"
+                    className="form-control"
+                    value={form.dni}
+                    onChange={handleChange}
+                    disabled={loading}
+                    required
+                  />
+                </div>
+
+                <button type="submit" className="btn btn-primary w-100">
+                  {loading ? "Registrando..." : "Registrarse"}
+                </button>
+              </form>
+
+              <p className="text-center mt-3">
+                ¿Ya tienes cuenta? <Link to="/login">Iniciar Sesion</Link>
+              </p>
             </div>
-            <div>
-              <label htmlFor="lastname">Apellido</label>
-              <input
-                id="lastname"
-                name="lastname"
-                type="text"
-                value={form.lastname}
-                onChange={handleChange}
-                disabled={loading}
-                required
-              />
-            </div>
           </div>
-
-          <div>
-            <label htmlFor="dni">DNI</label>
-            <input
-              id="dni"
-              name="dni"
-              type="text"
-              value={form.dni}
-              onChange={handleChange}
-              disabled={loading}
-              required
-            />
-          </div>
-
-          <button type="submit">
-            {loading ? "Registrando..." : "Registrarse"}
-          </button>
-        </form>
-
-        <p>
-          ¿Ya tienes cuenta? <Link to="/login">Iniciar Sesion</Link>
-        </p>
+        </div>
       </div>
     </main>
   );
